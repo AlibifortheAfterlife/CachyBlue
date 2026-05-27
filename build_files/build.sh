@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -ouex pipefail
-
 ### Install packages
 
 # Packages can be installed from any enabled yum repo on the image.
@@ -9,9 +8,26 @@ set -ouex pipefail
 # List of rpmfusion packages can be found here:
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
+#CachyOS Kernel
+dnf copr enable bieszczaders/kernel-cachyos
+dnf install -y kernel-cachyos
 
+setsebool -P domain_kernel_load_modules on
+
+dnf copr enable bieszczaders/kernel-cachyos-addons
+dnf swap zram-generator-defaults cachyos-settings
+dracut -f
+#Packages
+dnf install -y tmux
+dnf install -y zed
+dnf install -y steam
+dnf install -y podman-compose
+dnf install -y gnome-tweaks
+
+
+
+dnf copr disable bieszczaders/kernel-cachyos
+dnf copr disable bieszczaders/kernel-cachyos-addons
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
