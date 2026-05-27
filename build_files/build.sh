@@ -26,6 +26,8 @@ dnf copr enable -y bieszczaders/kernel-cachyos-addons
 
 dnf5 install -y kernel-cachyos kernel-cachyos-devel-matched
 
+rm /usr/lib/kernel/install.d/00-depmod.install
+
 setsebool -P domain_kernel_load_modules on
 
 dnf swap zram-generator-defaults cachyos-settings
