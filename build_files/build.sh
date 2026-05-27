@@ -10,16 +10,17 @@ set -ouex pipefail
 
 #CachyOS Kernel
 dnf copr enable -y bieszczaders/kernel-cachyos
-dnf install -y kernel-cachyos kernel-cachyos-devel-matched
-KVER=$(rpm -q kernel-cachyos --qf '%{version}-%{release}.%{arch}\n')
-depmod -a "${KVER}"
-dracut -f --kver "${KVER}"
+dnf copr enable -y bieszczaders/kernel-cachyos-addons
+
+rpm-ostree override remove kernel kernel-core kernel-modules \
+    kernel-modules-core kernel-modules-extra \
+    --install kernel-cachyos \
+    --install kernel-cachyos-devel-matched
+
 
 setsebool -P domain_kernel_load_modules on
 
-dnf copr enable -y bieszczaders/kernel-cachyos-addons
 dnf swap zram-generator-defaults cachyos-settings
-dracut -f
 #Packages
 dnf install -y tmux
 dnf install -y zed
