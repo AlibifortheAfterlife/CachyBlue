@@ -10,7 +10,10 @@ set -ouex pipefail
 
 #CachyOS Kernel
 dnf copr enable -y bieszczaders/kernel-cachyos
-dnf install -y kernel-cachyos
+KVER=$(rpm -q kernel-cachyos --qf '%{version}-%{release}.%{arch}\n')
+dnf install -y kernel-cachyos kernel-cachyos-devel-matched
+depmod -a "${KVER}"
+dracut -f --kver "${KVER}"
 
 setsebool -P domain_kernel_load_modules on
 
