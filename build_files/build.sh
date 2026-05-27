@@ -33,15 +33,22 @@ setsebool -P domain_kernel_load_modules on
 dnf swap -y zram-generator-defaults cachyos-settings
 #Packages
 dnf install -y tmux
-dnf install -y zed
+dnf install -y neovim
 dnf install -y steam
 dnf install -y podman-compose
 dnf install -y gnome-tweaks
 
-
-
 dnf copr disable -y bieszczaders/kernel-cachyos
 dnf copr disable -y bieszczaders/kernel-cachyos-addons
+
+NERD_FONT_VERSION="3.4.0"
+mkdir -p /usr/share/fonts/nerd-fonts
+wget -O /tmp/Hasklig.zip \
+    "https://github.com/ryanoasis/nerd-fonts/releases/download/v${NERD_FONT_VERSION}/Hasklig.zip"
+unzip /tmp/Hasklig.zip -d /usr/share/fonts/nerd-fonts/Hasklug
+fc-cache -f /usr/share/fonts/nerd-fonts
+rm /tmp/Hasklig.zip
+
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
