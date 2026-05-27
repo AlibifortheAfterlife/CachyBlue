@@ -30,7 +30,7 @@ rm /usr/lib/kernel/install.d/00-depmod.install
 
 setsebool -P domain_kernel_load_modules on
 
-dnf swap zram-generator-defaults cachyos-settings
+dnf swap -y zram-generator-defaults cachyos-settings
 #Packages
 dnf install -y tmux
 dnf install -y zed
