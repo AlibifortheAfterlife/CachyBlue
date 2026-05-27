@@ -12,11 +12,7 @@ set -ouex pipefail
 dnf copr enable -y bieszczaders/kernel-cachyos
 dnf copr enable -y bieszczaders/kernel-cachyos-addons
 
-rpm-ostree override remove kernel kernel-core kernel-modules \
-    kernel-modules-core kernel-modules-extra \
-    --install kernel-cachyos \
-    --install kernel-cachyos-devel-matched
-
+dnf5 install -y kernel-cachyos kernel-cachyos-devel-matched
 
 setsebool -P domain_kernel_load_modules on
 
