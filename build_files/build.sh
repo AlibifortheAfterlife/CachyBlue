@@ -9,12 +9,12 @@ set -ouex pipefail
 # https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
 
 #CachyOS Kernel
-dnf copr enable bieszczaders/kernel-cachyos
+dnf copr enable -y bieszczaders/kernel-cachyos
 dnf install -y kernel-cachyos
 
 setsebool -P domain_kernel_load_modules on
 
-dnf copr enable bieszczaders/kernel-cachyos-addons
+dnf copr enable -y bieszczaders/kernel-cachyos-addons
 dnf swap zram-generator-defaults cachyos-settings
 dracut -f
 #Packages
@@ -26,8 +26,8 @@ dnf install -y gnome-tweaks
 
 
 
-dnf copr disable bieszczaders/kernel-cachyos
-dnf copr disable bieszczaders/kernel-cachyos-addons
+dnf copr disable -y bieszczaders/kernel-cachyos
+dnf copr disable -y bieszczaders/kernel-cachyos-addons
 # Use a COPR Example:
 #
 # dnf5 -y copr enable ublue-os/staging
