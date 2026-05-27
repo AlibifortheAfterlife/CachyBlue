@@ -19,7 +19,8 @@ fi
 EOF
 
 chmod +x /usr/lib/kernel/install.d/00-depmod.install
-
+#Remove old Kernel
+dnf5 remove -y kernel kernel-core kernel-modules kernel-modules-core kernel-modules-extra
 #CachyOS Kernel
 dnf copr enable -y bieszczaders/kernel-cachyos
 dnf copr enable -y bieszczaders/kernel-cachyos-addons
